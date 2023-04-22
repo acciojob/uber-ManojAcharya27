@@ -8,21 +8,24 @@ import java.util.List;
 @Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int customerId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int customerId;
 
-    private String name;
+    private String mobile;
 
-    private String mblNo;
+    private String password;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    List<TripBooking> tripBookingList = new ArrayList<>();
 
-    private Customer(){
-
+    public Customer() {
     }
-    public Customer(int customerId, String name, String mblNo) {
+
+    public Customer(int customerId, String mobile, String password, List<TripBooking> tripBookingList) {
         this.customerId = customerId;
-        this.name = name;
-        this.mblNo = mblNo;
+        this.mobile = mobile;
+        this.password = password;
+        this.tripBookingList = tripBookingList;
     }
 
     public int getCustomerId() {
@@ -33,24 +36,21 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public String getMblNo() {
-        return mblNo;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMblNo(String mblNo) {
-        this.mblNo = mblNo;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    List<TripBooking> tripBookingList=new ArrayList<>();
 
     public List<TripBooking> getTripBookingList() {
         return tripBookingList;
